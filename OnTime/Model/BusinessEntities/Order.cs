@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,10 +24,10 @@ namespace OnTime.Model.BusinessEntities
         public int CashOnDelivery { get; set; }
         public int ClientPersonalId { get; set; }
         public virtual ClientPersonal ClientPersonal { get; set; }
-        public string TrackingId { get; set; }
-        public int OrderStatusId { get; set; }
+        public long TrackingId { get; set; }
+        public int? OrderStatusId { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime StatusChangeDate { get; set; }
+        public DateTime? StatusChangeDate { get; set; }
     }
 }

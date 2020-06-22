@@ -32,6 +32,14 @@ namespace OnTime.Controllers
             return ProductTypeList;
         }
 
-        
+        // GET: api/<controller>
+        [HttpGet]
+        [Route("GetCitiesList")]
+        public async Task<IEnumerable<City>> GetCities()
+        {
+            var CitiesList = await context.Cities.ToListAsync();
+            return CitiesList;
+        }
+
     }
 }

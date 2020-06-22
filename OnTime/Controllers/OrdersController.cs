@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OnTime.Model;
 using OnTime.Model.BusinessEntities;
 using OnTime.Model.ViewModel.Orders;
+using OnTime.Utilities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,7 +45,7 @@ namespace OnTime.Controllers
 
         [HttpGet]
         [Route("GetOrderByTrackingId/{Id}")]
-        public async Task<Order> GetOrderByTrackingId(string Id)
+        public async Task<Order> GetOrderByTrackingId(int Id)
         {
             var order = await context.Orders.Where(o => o.TrackingId == Id).FirstOrDefaultAsync();
             return order;
@@ -53,7 +54,7 @@ namespace OnTime.Controllers
         // POST api/<controller>
         [HttpPost]
         [Route("PlaceOrder")]
-        public async Task<IActionResult> AddOrder([FromBody]AddOrderViewModel orderViewModel)
+        public async Task<IActionResult> PlaceOrder([FromBody]AddOrderViewModel orderViewModel)
         {
             if (!ModelState.IsValid)
                 throw new Exception("Bad Request");
@@ -61,6 +62,9 @@ namespace OnTime.Controllers
             try
             {
                 await context.Orders.AddAsync(order);
+                await context.SaveChangesAsync();
+                order.TrackingId = ApplicationConstants.TRACKING_ID_INITIAL + order.Id;
+                context.Orders.Update(order);
                 await context.SaveChangesAsync();
                 return Ok();
             }

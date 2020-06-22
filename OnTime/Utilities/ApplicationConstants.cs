@@ -9,7 +9,7 @@ namespace OnTime.Utilities
     {
         public const int PASSWORD_STRING_LENGTH = 5;
         public const string USER_NAME_PREFIX = "Otcs";
-
+        public const int TRACKING_ID_INITIAL = 3888;
         public static string PasswordString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

@@ -25,7 +25,6 @@ namespace OnTime.Model.ViewModel.Orders
         [Required]
         [DataType(DataType.Date)]
         public DateTime BookingDate { get; set; }
-        [Required]
         public string SpecialInstructions { get; set; }
         [Required]
         public int Weight { get; set; }

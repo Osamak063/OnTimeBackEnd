@@ -190,6 +190,7 @@ namespace OnTime.Controllers
             if (result.Succeeded)
             {   // sign in token
                 var user = await userManager.FindByNameAsync(model.UserName);
+                var clientPersonalId = await context.ClientPersonal.Where(c => c.UserId == user.Id).Select(c => c.Id).FirstOrDefaultAsync();
                 var roles = await userManager.GetRolesAsync(user);
                 user.PasswordHash = null;
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -211,6 +212,7 @@ namespace OnTime.Controllers
                 userWithToken.TryAdd("user", new
                 {
                     user,
+                    clientPersonalId,
                     role = roles.Count > 0 ? roles[0] : null
                 });
                 return Ok(userWithToken);
